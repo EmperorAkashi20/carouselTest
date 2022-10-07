@@ -29,6 +29,7 @@ environment:
 dependencies:
   get:
   responsive_framework:
+  carousel_slider:
   video_player:
   animate_do:
   flutter:

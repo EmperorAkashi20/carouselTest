@@ -1,25 +1,24 @@
-import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 class HomeController extends GetxController {
-  late PageController pageController;
-  int currentPage = 0;
+  RxInt currentPage = 0.obs;
   late VideoPlayerController videoPlayerController;
   late Future<void> initializeVideoPlayerFuture;
-  late RxDouble value;
+  RxDouble value = 0.0.obs;
+  late CarouselController carouselController;
 
   @override
   void onInit() {
-    pageController =
-        PageController(initialPage: currentPage, viewportFraction: 0.8);
     videoPlayerController = VideoPlayerController.network(
       'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
     );
     videoPlayerController.setLooping(true);
+    videoPlayerController.setVolume(0);
     initializeVideoPlayerFuture = videoPlayerController.initialize();
 
-    value = 0.0.obs;
+    carouselController = CarouselController();
 
     super.onInit();
   }
@@ -27,7 +26,6 @@ class HomeController extends GetxController {
   @override
   void dispose() {
     videoPlayerController.dispose();
-    pageController.dispose();
     super.dispose();
   }
 }
